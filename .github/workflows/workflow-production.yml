@@ -1,9 +1,7 @@
 name: Manual Deploy Production
 
 on:
-  push:
-    branches:
-      - enjinstarter
+  workflow_dispatch:
 
 jobs:
   deploy_prod:
