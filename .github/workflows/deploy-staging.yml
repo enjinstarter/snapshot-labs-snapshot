@@ -1,7 +1,9 @@
 name: Auto Deploy Staging
 
-on: 
-  workflow_dispatch:
+on:
+  push:
+    branches:
+      - enjinstarter
 
 jobs:
   deploy_qat:
