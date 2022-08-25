@@ -51,7 +51,7 @@ export function useSpaceController() {
       ? getAddress(spaceControllerInput.value)
       : null;
     const registryNetworkPath = defaultNetwork === '1' ? '' : 'testnet/';
-    return `ipns://storage.snapshot.page/registry/${registryNetworkPath}${address}/${keyURI}`;
+    return `ipns://storage.enjinstarter.page/registry/${registryNetworkPath}${address}/${keyURI}`;
   });
 
   async function waitForSetRecord(tx) {

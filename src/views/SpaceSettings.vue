@@ -48,7 +48,7 @@ const textRecord = computed(() => {
     ? getAddress(web3Account.value)
     : '<your-address>';
   const registryNetworkPath = defaultNetwork === '1' ? '' : 'testnet/';
-  return `ipns://storage.snapshot.page/registry/${registryNetworkPath}${address}/${keyURI}`;
+  return `ipns://storage.enjinstarter.page/registry/${registryNetworkPath}${address}/${keyURI}`;
 });
 
 const isSpaceController = computed(() => {
