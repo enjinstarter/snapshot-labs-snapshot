@@ -1,0 +1,39 @@
+name: Manual Deploy Production
+
+on:
+  push:
+    branches:
+      - enjinstarter
+
+jobs:
+  deploy_prod:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn
+      - name: Build
+        run: yarn build
+      - name: Sync build directory to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.PROD_AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "ap-northeast-1" # optional: defaults to us-east-1
+          SOURCE_DIR: "build" # optional: defaults to entire repository
+      - name: Invalidate Cloud Front cache
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          PATHS: "/"
+          AWS_REGION: "ap-northeast-1"
+          DISTRIBUTION: ${{ secrets.PROD_AWS_CLOUDFRONT_DISTRIBUTION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
