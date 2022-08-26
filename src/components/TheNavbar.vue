@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useApp, useWeb3, useTxStatus } from '@/composables';
+import logo from '@/assets/icons/logo.png';
 
 const { pendingCount } = useTxStatus();
 const { env, showSidebar, domain } = useApp();
@@ -26,7 +27,7 @@ const { web3Account } = useWeb3();
             class="-ml-3 hidden items-center sm:block"
             style="font-size: 24px"
           >
-            snapshot
+            <img :src="logo" />
           </router-link>
         </div>
         <div :key="web3Account" class="flex space-x-2">
