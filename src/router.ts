@@ -105,6 +105,11 @@ if (domain) {
       alias: `/${domainAlias ?? domain}/:path(.*)`,
       name: 'space-redirect',
       redirect: (to: RouteLocation) => ({ path: `/${to.params.path}` })
+    },
+    {
+      path: '/setup/:ens?',
+      name: 'setup',
+      component: SetupView
     }
   );
 } else {
